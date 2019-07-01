@@ -1,10 +1,14 @@
-function component() {
-    var element = document.createElement('div');
-  
-    // Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的
-    element.innerHTML = 'hello world';
-  
-    return element;
+import React from 'react'
+import ReactDOM from 'react-dom'
+class MyPage extends React.Component{
+  constructor(parameter){
+    super(parameter)
   }
-  
-  document.body.appendChild(component());  
+
+  render(){
+    let {msg}=this.props
+    return(<div>{msg}</div>)
+  }
+}
+
+ReactDOM.render(<MyPage msg={"hello world"}></MyPage>,document.getElementById("root"))
