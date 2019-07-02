@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore } from 'redux';
 import { Provider,connect } from 'react-redux'
+import publicUser from '../controller/PublicUser'
 class MyPage extends React.Component{
   constructor(parameter){
     super(parameter)
@@ -9,11 +10,12 @@ class MyPage extends React.Component{
 
   render(){
     console.log("prop",this.props)
-    let {msg,dispatch,count}=this.props
+    let {msg,[publicUser.namespace]:userInfo}=this.props
+    let {count}=userInfo;
     return(<div>
       <p>{msg}</p>
       <div>总数：{count}</div>
-      <button onClick={x=>dispatch({type:"as",data:{count:count+1}})}>点我+1</button>
+      <button onClick={x=>publicUser.add({count:count+1})}>点我+1</button>
       </div>)
   }
 }
@@ -32,9 +34,13 @@ let store = createStore((st, ac) => {
   if (ac.data)
     return { ...st, ...ac.data };
   return st;
-}, { count: 0 });
+}, {});
 
 window.NT=store;
+
+publicUser.namespace="publicUser";
+publicUser.dispatch=store.dispatch;
+publicUser.get=store.getState
 
 ReactDOM.render(<Provider store={store}>
   <MyPageWrapper msg={"hello world"}></MyPageWrapper>
