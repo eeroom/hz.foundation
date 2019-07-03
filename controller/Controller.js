@@ -6,7 +6,6 @@ export default class Controller{
     getState=''
 
     setState=(data)=>{
-        let storevalue=this.getState();
-        this.dispatch({type:"hz",data:{...storevalue,...data}});
+        this.dispatch({type:"hz",namespace:this.namespace,data});
     }
 }

@@ -10,8 +10,8 @@ class MyPage extends React.Component{
 
   render(){
     console.log("prop",this.props)
-    let {msg,[publicUser.namespace]:userInfo}=this.props
-    let {count}=userInfo;
+    let {msg,count=0}=this.props
+   
     return(<div>
       <p>{msg}</p>
       <div>总数：{count}</div>
@@ -20,19 +20,15 @@ class MyPage extends React.Component{
   }
 }
 
-const MyPageWrapper=connect(x=>{
-  console.log("connetMapProp",x);
-  return x;
-},x=>{
-  console.log("mapDispath",x);
-  return {dispatch:x};
-})(MyPage);
+const MyPageWrapper=connect(({[publicUser.namespace]:myprop={}})=>myprop)(MyPage);
 
 let store = createStore((st, ac) => {
   console.log("st", st);
   console.log("ac", ac);
-  if (ac.data)
-    return { ...st, ...ac.data };
+  if (ac.namespace){
+    return { ...st, [ac.namespace]:{...st[ac.namespace],...ac.data} };
+  }
+   
   return st;
 }, {});
 
@@ -40,7 +36,7 @@ window.NT=store;
 
 publicUser.namespace="publicUser";
 publicUser.dispatch=store.dispatch;
-publicUser.get=store.getState
+publicUser.getState=store.getState
 
 ReactDOM.render(<Provider store={store}>
   <MyPageWrapper msg={"hello world"}></MyPageWrapper>
