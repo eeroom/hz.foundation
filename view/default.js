@@ -20,3 +20,5 @@ class MyPage extends React.Component{
   }
 
   const MyPageWrapper=connect(({[publicUser.namespace]:myprop={}})=>myprop)(MyPage);
+
+  export default MyPageWrapper;

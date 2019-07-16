@@ -1,4 +1,24 @@
 {
     "presets": ["env", "stage-0", "react"],
-    "plugins": ["transform-runtime"]
+    "plugins": ["transform-runtime",
+      ["import", [
+        {
+          "libraryName": "antd",
+          "libraryDirectory": "lib",   // default: lib
+          "style": "css"
+        },
+        {
+          "libraryName": "antd-mobile",
+          "style": "css"
+        },
+      ]]
+        // ["import",  {
+        //     "libraryName": "antd",
+        //     "libraryDirectory": "lib",   // default: lib
+        //     "style": true
+        //   },
+        //   {
+        //     "libraryName": "antd-mobile"
+        //   }]
+    ]
 }
