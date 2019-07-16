@@ -1,39 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore } from 'redux';
-import { Provider,connect } from 'react-redux'
-import PublicUser from '../controller/PublicUser'
+import { Provider } from 'react-redux'
 import Controller from '../controller/Controller';
-const publicUser=new PublicUser();
-class MyPage extends React.Component{
-  constructor(parameter){
-    super(parameter)
-  }
 
-  render(){
-    console.log("prop",this.props)
-    let {msg,count=0}=this.props
-    return(<div>
-      <p>{msg}</p>
-      <div>总数：{count}</div>
-      <button onClick={x=>publicUser.add({count:count+1})}>点我+1</button>
-      </div>)
+let store = createStore((state, action) => {
+  // console.log("state", state);
+  // console.log("action", action);
+  if (action.namespace){
+    return { ...state, [action.namespace]:{...state[action.namespace],...action.data} };
   }
-}
-
-const MyPageWrapper=connect(({[publicUser.namespace]:myprop={}})=>myprop)(MyPage);
-
-let store = createStore((st, ac) => {
-  console.log("st", st);
-  console.log("ac", ac);
-  if (ac.namespace){
-    return { ...st, [ac.namespace]:{...st[ac.namespace],...ac.data} };
-  }
-   
-  return st;
+  return state;
 }, {});
-
-window.NT=store;
 
 Controller.dispatch=store.dispatch;
 Controller.getState=store.getState;

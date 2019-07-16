@@ -11,7 +11,7 @@ export default class Controller{
 
 
 
-    setState=(data)=>{
+    setState(data){
         this.dispatch({type:"hz",namespace:this.namespace,data});
     }
 }

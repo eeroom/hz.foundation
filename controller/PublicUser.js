@@ -6,7 +6,7 @@ class  PublicUser extends Controller{
         this.namespace=PublicUser.name;
     }
 
-    add=({count})=>{
+    add({count}){
         this.setState({count})
     }
 }
