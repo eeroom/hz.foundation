@@ -1,9 +1,15 @@
 export default class Controller{
-    namespace=''
+    namespace;
 
-    dispatch=''
+    dispatch(parameter){
+        return Controller.dispatch(parameter);
+    }
 
-    getState=''
+    getState(){
+        return Controller.getState();
+    }
+
+
 
     setState=(data)=>{
         this.dispatch({type:"hz",namespace:this.namespace,data});

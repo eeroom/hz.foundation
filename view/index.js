@@ -2,7 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore } from 'redux';
 import { Provider,connect } from 'react-redux'
-import publicUser from '../controller/PublicUser'
+import PublicUser from '../controller/PublicUser'
+import Controller from '../controller/Controller';
+const publicUser=new PublicUser();
 class MyPage extends React.Component{
   constructor(parameter){
     super(parameter)
@@ -11,7 +13,6 @@ class MyPage extends React.Component{
   render(){
     console.log("prop",this.props)
     let {msg,count=0}=this.props
-   
     return(<div>
       <p>{msg}</p>
       <div>总数：{count}</div>
@@ -34,9 +35,8 @@ let store = createStore((st, ac) => {
 
 window.NT=store;
 
-publicUser.namespace="publicUser";
-publicUser.dispatch=store.dispatch;
-publicUser.getState=store.getState
+Controller.dispatch=store.dispatch;
+Controller.getState=store.getState;
 
 ReactDOM.render(<Provider store={store}>
   <MyPageWrapper msg={"hello world"}></MyPageWrapper>
