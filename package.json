@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/Deroomor/Azeroth.React#readme",
   "devDependencies": {
+    "antd": "^3.20.3",
+    "antd-mobile": "^2.2.14",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-runtime": "^6.23.0",
