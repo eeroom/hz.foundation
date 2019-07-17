@@ -2,7 +2,7 @@ import React from 'react';
 import { TabBar } from 'antd-mobile';
 import { Grid } from 'antd-mobile';
 import { NavBar, Icon } from 'antd-mobile';
-class DashboardMobile extends React.Component {
+class IndexMobile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -191,4 +191,4 @@ class DashboardMobile extends React.Component {
     }
 }
 
-export default DashboardMobile
+export default IndexMobile
