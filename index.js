@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux'
 import Controller from './controller/Controller';
-import { Route, HashRouter, Redirect } from 'react-router-dom';
+import { Route, HashRouter, Redirect,Switch } from 'react-router-dom';
 import IndexMobile from './view/home/indexMobile'
 import Login from './view/account/login'
 
@@ -44,11 +44,13 @@ let mathComponent=(routeInfo)=>{
 
 ReactDOM.render(<Provider store={store}>
   <HashRouter>
-    <Route exact path="/account/login" component={Login}></Route>
-    <Route exact path="/:nav/:controller/:action" render={x => (<Authenrization view={mathComponent(x)} {...x} />)}></Route>
-    <Route exact path="/:controller/:action" render={x => (<Authenrization view={mathComponent(x)} {...x} />)}></Route>
-    <Route exact path="/:page" render={x => (<Authenrization view={mathComponent(x)} {...x} />)}></Route>
-    <Route exact path="/" render={x => (<Authenrization view={IndexMobile} {...x} />)} ></Route>
-    <Route component={View404}></Route>
+    <Switch>
+      <Route exact path="/account/login" component={Login}></Route>
+      <Route exact path="/:nav/:controller/:action" render={x => (<Authenrization view={mathComponent(x)} {...x} />)}></Route>
+      <Route exact path="/:controller/:action" render={x => (<Authenrization view={mathComponent(x)} {...x} />)}></Route>
+      <Route exact path="/:page" render={x => (<Authenrization view={mathComponent(x)} {...x} />)}></Route>
+      <Route exact path="/" render={x => (<Authenrization view={IndexMobile} {...x} />)} ></Route>
+      <Route component={View404}></Route>
+    </Switch>
   </HashRouter>
 </Provider>, document.getElementById("root"))
