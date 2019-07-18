@@ -38,7 +38,7 @@ const Authenrization = ({ view: View, ...props }) => {
 
 let mathComponent=(routeInfo)=>{
   let url = routeInfo.match.url.toLowerCase();
-  let View = (lstComponent.find(x => routeInfo.path.indexOf(url) >= 0) || {}).component;
+  let View = (lstComponent.find(x => x.path.indexOf(url) >= 0) || {}).component;
   return View||View404;
 }
 
