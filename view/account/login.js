@@ -2,6 +2,7 @@ import React from 'react'
 import { List, InputItem, WhiteSpace,Button } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import AccountController from '../../controller/AccountController'
+import { message } from 'antd';
 const accountController=new AccountController();
 class Login extends React.Component {
   componentDidMount() {
@@ -11,7 +12,10 @@ class Login extends React.Component {
     this.inputRef.focus();
   }
   render() {
-    const { getFieldProps } = this.props.form;
+    //console.log("prop",this.props);
+    const{form,history}=this.props;
+   
+    const { getFieldProps } = form;
     return (
         <div>
             <div>督察管理系统</div>
@@ -29,10 +33,28 @@ class Login extends React.Component {
             >密码</InputItem>
             <WhiteSpace />
             <Button type="primary"
-            onClick={x=>accountController.login({loginName:"changxyxa",password:"admin2019"})}
+            onClick={x=>accountController.login({loginName:"changxyxa",password:"admin2019"},this.callBackOnLoginOnClick)}
             >登陆</Button>
         </div>
     );
+  }
+
+  callBackOnLoginOnClick = ({ status, msg }) => {
+    //console.log("prop", this.props);
+    const { form, history } = this.props;
+    const { location } = history;
+    const { search='' } = location;
+    if (!status) {
+      message.info(msg || "登陆失败");
+      return;
+    }
+    message.info("登陆成功");
+    window.setTimeout(function (params) {
+      let target=search.replace("?returnurl=",'')||"/"
+      target=decodeURIComponent(target);
+      console.log("target",target)
+      history.push(target);
+    }, 1000)
   }
 }
 
