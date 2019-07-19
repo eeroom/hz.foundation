@@ -19,57 +19,64 @@ let store = createStore((state, action) => {
 Controller.dispatch = store.dispatch;
 Controller.getState = store.getState;
 
-let lstView = require.context("./view", true, /\.js$/);
-console.log("lstView", lstView)
-let lstComponent = lstView.keys().map(key => ({
-  path: lstView.resolve(key).toLowerCase()
-  , component: lstView(key).default
+let lstViewPage = require.context("./view", true, /\.js$/);
+console.log("lstViewPage", lstViewPage)
+let lstViewComponent = lstViewPage.keys().map(key => ({
+  path: lstViewPage.resolve(key).toLowerCase()
+  , component: lstViewPage(key).default
 }));
-console.log("lstComponent", lstComponent)
+console.log("lstComponent", lstViewComponent)
 let View404 = () => {
   return (<div>页面跑了( ▼-▼ )</div>);
 }
 
-const Authenrization = ({ view: View, ...props }) => {
-  let userInfo= UserInfo.getUserInfo();
-  if (!userInfo) {
-    const { location } = props;
-    const { pathname, search } = location;
+let ViewForbid = () => {
+  return (<div>没有访问权限( ▼-▼ )</div>);
+}
+
+const ViewFilter = ({ view: View, ...props }) => {
+  const { location } = props;
+  const { pathname, search } = location;
+  if (!authenrization(pathname)) {
     let returnurl = "?returnurl=" + encodeURIComponent(pathname + search);
-    
-    return (<Redirect to={{ pathname: "/account/login", search: returnurl }}></Redirect>)
+    return (<Redirect to={{ pathname: "/account/login", search: returnurl }}></Redirect>);
+  }
+  if(!View)
+    return <View404 {...props} />;
+  if(!authorization({pathname})){
+    return <ViewForbid {...props}></ViewForbid>
   }
   return <View {...props} />;
 }
 
-// let mathComponent=(routeInfo)=>{
-//   let url = routeInfo.match.url.toLowerCase();
-//   let View = (lstComponent.find(x => x.path.indexOf(url) >= 0) || {}).component;
-//   return View||View404;
-// }
+//认证
+const authenrization=({pathname})=>{
+  let userInfo= UserInfo.getUserInfo();
+  if (!userInfo) {
+    return false;
+  }
+  return true;
+}
+
+//授权
+const authorization=({pathname})=>{
+  return true;
+}
 
 const MatchView = (props) => {
-  console.log("props11", props)
   const {location}=props;
   const{pathname}=location;
   let url=pathname.toLowerCase()+'.js';
-  let View = (lstComponent.find(x => x.path.indexOf(url) >= 0) || {}).component;
-  console.log("View",View)
-  View=View||View404
-  return (<Authenrization view={View} {...props}></Authenrization>)
+  let View = (lstViewComponent.find(x => x.path.indexOf(url) >= 0) || {}).component;
+  return (<ViewFilter view={View} {...props} />)
 }
 
 ReactDOM.render(<Provider store={store}>
   <BrowserRouter>
     <Switch>
       <Route exact path="/account/login" component={Login}></Route>
-      <Route exact path="/" render={x => (<Authenrization view={IndexMobile} {...x} />)} ></Route>
+      <Route exact path="/" render={x => (<ViewFilter view={IndexMobile} {...x} />)} ></Route>
       <Route component={MatchView} ></Route>
-      {/* <Route exact path="/:nav/:controller/:action" render={x => (<Authenrization view={mathComponent(x)} {...x} />)}></Route>
-      <Route exact path="/:controller/:action" render={x => (<Authenrization view={mathComponent(x)} {...x} />)}></Route>
-      <Route exact path="/:page" render={x => (<Authenrization view={mathComponent(x)} {...x} />)}></Route>
-      <Route exact path="/" render={x => (<Authenrization view={IndexMobile} {...x} />)} ></Route>
-      <Route component={View404}></Route> */}
     </Switch>
   </BrowserRouter>
 </Provider>, document.getElementById("root"))
