@@ -1,7 +1,7 @@
 import Controller from './Controller'
 import httpclient from '../utils/httpclient'
 import api from '../utils/api'
-
+import {UserInfo} from '../utils/helper'
 class  AccountController extends Controller{
 
     constructor(parameter){
@@ -9,31 +9,14 @@ class  AccountController extends Controller{
         this.namespace=AccountController.name;
     }
 
-    async login(parameter){
-
-        // new Promise((ok,notok)=>notok(4)).then(x=>console.log("promiseThen",x))
-        // .catch(x=>console.log("promisCatch",x));
-
-        console.log("parameter",parameter)
-        // let rt=await httpclient.post(api.Account.Login,parameter);
-        // console.log("rt",rt);
-        let rtWrapper= await new Promise((ok,notok)=>{
-            let value1,value2;
-            httpclient.post(api.Account.Login,parameter)
-            .then(x=>{
-                value1=x;
-                value1&&value2&&ok({value1,value2})
-            })
-            httpclient.post(api.Account.Login,parameter)
-            .then(x=>{
-                value2=x;
-                value1&&value2&&ok({value1,value2})
-            })
-        });
-        console.log("rtWrapper",rtWrapper);
-
-        // httpclient.post(api.Account.Login,parameter)
-        // .then(x=>console.log("rt",x));
+    async login(parameter,callback){
+        //let rt=await httpclient.post(api.Account.Login,parameter);
+        if(parameter.password!=="admin2019"){
+            callback({status:false,msg:"密码错误"})
+            return;
+        }
+        UserInfo.setUserInfo(parameter);
+        callback({status:true});
     }
 }
 
