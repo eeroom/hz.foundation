@@ -2,6 +2,10 @@ import React from 'react';
 import { TabBar } from 'antd-mobile';
 import { Grid } from 'antd-mobile';
 import { NavBar, Icon } from 'antd-mobile';
+import {jcTree,convertToArray} from '../../data/menu'
+
+let lst=convertToArray(jcTree);
+console.log("lst",lst);
 class IndexMobile extends React.Component {
     constructor(props) {
         super(props);
