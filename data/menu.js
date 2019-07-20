@@ -7,17 +7,11 @@ export const userCenterTree = {
 };
 
 export const jcTree = {
-    "制度学习": {
-        id: 2,
-        path: "/learn",
-        children: {
-            "制度学习": {id: 21, path: "/learn/index" }
-        }
-    },
-    "基础数据": {
+    "准备": {
         id: 3,
         path: "/bdata",
         children: {
+            "制度学习": {id: 21, path: "/learn/index" },
             "大类设置": { id: 31, path: "/firstcategory/setting" },
             "检查库管理": { id: 32, path: "/secondecategory/setting" },
         }
@@ -29,13 +23,16 @@ export const jcTree = {
         children: {
             "创建检查表": { id: 41, path: "/inspection/create" },
             "本次检查": { id: 42, path: "/inspection/work" },
+            "本次对接": { id: 51, path: "/dj/index", },
         }
     },
-    "对接": {
-        id: 5,
-        path: "/dj",
+    "复查": {
+        id: 7,
+        path: "/fc",
         children: {
-            "对接": { id: 51, path: "/dj/index", },
+            "创建复查表": { id: 71, path: "/fc/create" },
+            "本次复查": { id: 72, path: "/fc/work" },
+            "复查对接": { id: 51, path: "/dj/index", },
         }
     },
     "整改": {
@@ -45,14 +42,7 @@ export const jcTree = {
             "整改": { id: 61, path: "/zg/index" },
         }
     },
-    "复查": {
-        id: 7,
-        path: "/fc",
-        children: {
-            "创建复查表": { id: 71, path: "/fc/create" },
-            "本次复查": { id: 72, path: "/fc/work" },
-        }
-    },
+   
     
 };
 
@@ -95,7 +85,7 @@ export const convertToArray = (objTree, parentId, targetArray) => {
         if (!objTree.hasOwnProperty(key))
             continue;
         const element = objTree[key];
-        let tmp = { ...element, name: key, parentId };
+        let tmp = { ...element, name: key, parentId,children:[] };
         targetArray.push(tmp);
         if (!element.children)
             continue;
