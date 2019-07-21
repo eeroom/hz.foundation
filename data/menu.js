@@ -13,7 +13,7 @@ export const jcTree = {
         children: {
             "制度学习": {id: 21, path: "/learn/index" },
             "大类设置": { id: 31, path: "/firstcategory/setting" },
-            "检查库管理": { id: 32, path: "/secondecategory/setting" },
+            "检查库": { id: 32, path: "/secondecategory/setting" },
         }
 
     },
