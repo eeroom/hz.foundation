@@ -5,7 +5,7 @@ import { lstmenuTree } from './menuTree'
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
-class LayoutFluid extends React.Component {
+class Fluid extends React.Component {
 
   constructor(parameter) {
     super(parameter)
@@ -81,4 +81,4 @@ class LayoutFluid extends React.Component {
   styleFooter = { textAlign: 'center', position: 'fixed', bottom: 0, left: 0, width: '100%', zIndex: 1, height: 30, padding: 0 }
 }
 
-export default LayoutFluid
+export default Fluid

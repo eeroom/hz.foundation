@@ -1,12 +1,12 @@
-export default class Controller{
+export default class Bll{
     namespace;
 
     dispatch(parameter){
-        return Controller.dispatch(parameter);
+        return Bll.dispatch(parameter);
     }
 
     getState(){
-        return Controller.getState();
+        return Bll.getState();
     }
 
 

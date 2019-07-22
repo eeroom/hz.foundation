@@ -4,10 +4,10 @@ import { TabBar, List, Card } from 'antd-mobile';
 import { Grid } from 'antd-mobile';
 import { NavBar, Icon } from 'antd-mobile';
 import { jcTree, convertToArray,jcReportTree } from '../../data/menu'
-import IndexMobileController from '../../controller/IndexMobileController'
+import BllHomeIndexMobile from '../../bll/BllHomeIndexMobile'
 
 const Item = List.Item;
-let bllIndexMobile = new IndexMobileController();
+let bll = new BllHomeIndexMobile();
 
 let tabicon = {
     "zhifu": {
@@ -28,7 +28,7 @@ let tabicon = {
     }
 }
 
-class IndexMobile extends React.Component {
+class Index extends React.Component {
 
     constructor(props) {
         super(props);
@@ -58,19 +58,19 @@ class IndexMobile extends React.Component {
                 >
                     <TabBar.Item title="大类" key="dl"
                         selected={selectedTabId === 'dl'}
-                        onPress={() => bllIndexMobile.setState({ selectedTabId: "dl" })}
+                        onPress={() => bll.setState({ selectedTabId: "dl" })}
                         icon={<div style={{ ...tabicon.zhifu.normal, width: '22px', height: '22px', }} />}
                         selectedIcon={<div style={{ ...tabicon.zhifu.selected, width: '22px', height: '22px', }} />}
                     >
                         <div style={{ paddingTop: 45 }}>
                             <Grid data={lstdl} hasLine={false} columnNum={2}
-                                onClick={(el, index) => bllIndexMobile.setState({ leverOneCategory: { ...el }, selectedTabId: "jc" })}
+                                onClick={(el, index) => bll.setState({ leverOneCategory: { ...el }, selectedTabId: "jc" })}
                             />
                         </div>
                     </TabBar.Item>
                     <TabBar.Item title="检查" key="jc"
                         selected={selectedTabId === 'jc'}
-                        onPress={() => bllIndexMobile.setState({ selectedTabId: "jc" })}
+                        onPress={() => bll.setState({ selectedTabId: "jc" })}
                         icon={<div style={{ ...tabicon.koubei.normal, width: '22px', height: '22px', }} />}
                         selectedIcon={<div style={{ ...tabicon.koubei.selected, width: '22px', height: '22px', }} />}
                     >
@@ -82,7 +82,7 @@ class IndexMobile extends React.Component {
                         icon={<div style={{ ...tabicon.friend.normal, width: '22px', height: '22px', }} />}
                         selectedIcon={<div style={{ ...tabicon.friend.selected, width: '22px', height: '22px', }} />}
                         selected={selectedTabId === 'report'}
-                        onPress={() => bllIndexMobile.setState({ selectedTabId: "report" })}
+                        onPress={() => bll.setState({ selectedTabId: "report" })}
                     >
                         {
                             this.renderBB(selectedTabId)
@@ -92,7 +92,7 @@ class IndexMobile extends React.Component {
                         icon={tabicon.me.normal}
                         selectedIcon={tabicon.me.selected}
                         selected={selectedTabId === 'me'}
-                        onPress={() => bllIndexMobile.setState({ selectedTabId: "me" })}
+                        onPress={() => bll.setState({ selectedTabId: "me" })}
                         data-seed="logId"
                     >
                         <Card>
@@ -174,4 +174,4 @@ class IndexMobile extends React.Component {
     }
 }
 
-export default connect(x => ({ ...x[bllIndexMobile.namespace] }))(IndexMobile)
+export default connect(x => ({ ...x[bll.namespace] }))(Index)

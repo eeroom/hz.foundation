@@ -2,11 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux'
-import Controller from './controller/Controller';
+import Bll from './bll/Bll';
 import { Route, HashRouter, Redirect,Switch,BrowserRouter } from 'react-router-dom';
-import IndexMobile from './view/home/indexMobile'
+import HomeIndex from './view/home/index-mobile'
 import Login from './view/account/login'
-import {UserInfo} from './utils/helper'
+import helper from './utils/helper'
 let store = createStore((state, action) => {
   // console.log("state", state);
   // console.log("action", action);
@@ -16,8 +16,8 @@ let store = createStore((state, action) => {
   return state;
 }, {});
 
-Controller.dispatch = store.dispatch;
-Controller.getState = store.getState;
+Bll.dispatch = store.dispatch;
+Bll.getState = store.getState;
 
 let lstViewPage = require.context("./view", true, /\.js$/);
 console.log("lstViewPage", lstViewPage)
@@ -25,7 +25,7 @@ let lstViewComponent = lstViewPage.keys().map(key => ({
   path: lstViewPage.resolve(key).toLowerCase()
   , component: lstViewPage(key).default
 }));
-console.log("lstComponent", lstViewComponent)
+console.log("lstViewComponent", lstViewComponent)
 let View404 = () => {
   return (<div>页面跑了( ▼-▼ )</div>);
 }
@@ -34,7 +34,7 @@ let ViewForbid = () => {
   return (<div>没有访问权限( ▼-▼ )</div>);
 }
 
-const ViewFilter = ({ view: View, ...props }) => {
+const FilterView = ({ view: View, ...props }) => {
   const { location } = props;
   const { pathname, search } = location;
   if (!authenrization(pathname)) {
@@ -51,7 +51,7 @@ const ViewFilter = ({ view: View, ...props }) => {
 
 //认证
 const authenrization=({pathname})=>{
-  let userInfo= UserInfo.getUserInfo();
+  let userInfo= helper.localStorage.getUserInfo();
   if (!userInfo) {
     return false;
   }
@@ -68,14 +68,14 @@ const MatchView = (props) => {
   const{pathname}=location;
   let url=pathname.toLowerCase()+'.js';
   let View = (lstViewComponent.find(x => x.path.indexOf(url) >= 0) || {}).component;
-  return (<ViewFilter view={View} {...props} />)
+  return (<FilterView view={View} {...props} />)
 }
 
 ReactDOM.render(<Provider store={store}>
   <BrowserRouter>
     <Switch>
       <Route exact path="/account/login" component={Login}></Route>
-      <Route exact path="/" render={x => (<ViewFilter view={IndexMobile} {...x} />)} ></Route>
+      <Route exact path="/" render={x => (<FilterView view={HomeIndex} {...x} />)} ></Route>
       <Route component={MatchView} ></Route>
     </Switch>
   </BrowserRouter>

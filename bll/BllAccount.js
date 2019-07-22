@@ -1,12 +1,12 @@
-import Controller from './Controller'
+import Bll from './Bll'
 import httpclient from '../utils/httpclient'
 import api from '../utils/api'
-import {UserInfo} from '../utils/helper'
-class  AccountController extends Controller{
+import helper from '../utils/helper'
+class  BllAccount extends Bll{
 
     constructor(parameter){
         super(parameter);
-        this.namespace=AccountController.name;
+        this.namespace=BllAccount.name;
     }
 
     async login(parameter,callback){
@@ -15,9 +15,9 @@ class  AccountController extends Controller{
             callback({status:false,msg:"密码错误"})
             return;
         }
-        UserInfo.setUserInfo(parameter);
+        helper.localStorage.setUserInfo(parameter);
         callback({status:true});
     }
 }
 
-export default AccountController;
+export default BllAccount;

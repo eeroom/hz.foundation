@@ -1,9 +1,9 @@
 import React from 'react'
 import { List, InputItem, WhiteSpace,Button } from 'antd-mobile';
 import { createForm } from 'rc-form';
-import AccountController from '../../controller/AccountController'
+import BllAccount from '../../bll/BllAccount'
 import { message } from 'antd';
-const accountController=new AccountController();
+const bll=new BllAccount();
 class Login extends React.Component {
   componentDidMount() {
      this.autoFocusInst.focus();
@@ -33,7 +33,7 @@ class Login extends React.Component {
             >密码</InputItem>
             <WhiteSpace />
             <Button type="primary"
-            onClick={x=>accountController.login({loginName:"changxyxa",password:"admin2019"},this.callBackOnLoginOnClick)}
+            onClick={x=>bll.login({loginName:"changxyxa",password:"admin2019"},this.callBackOnLoginOnClick)}
             >登陆</Button>
         </div>
     );
