@@ -15,8 +15,8 @@ module.exports = {
         port: 8080,
         historyApiFallback: true,//当使用 HTML5 History API 时，任意的 404 响应都可能需要被替代为 index.html
         //host: "localhost",//默认localhost
-        //host: "192.138.56.101",//默认localhost
-        host: "192.168.1.109",//默认localhost
+        host: "192.138.56.101",//默认localhost
+        //host: "192.168.1.109",//默认localhost
         inline: true,//在 dev-server 的两种不同模式之间切换
         noInfo: false,// webpack 包(bundle)信息」的消息将被隐藏。错误和警告仍然会显示。
         open: true,//打开浏览器
