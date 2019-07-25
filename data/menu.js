@@ -21,7 +21,7 @@ export const jcTree = {
         id: 4,
         path: "/inspection",
         children: {
-            "创建检查表": { id: 41, path: "/inspection/create" },
+            "创建检查表": { id: 41, path: "/inspection/CreateTable" },
             "本次检查": { id: 42, path: "/inspection/work" },
             "本次对接": { id: 51, path: "/dj/index", },
         }

@@ -22,7 +22,7 @@ Bll.getState = store.getState;
 let lstViewPage = require.context("./view", true, /\.js$/);
 console.log("lstViewPage", lstViewPage)
 let lstViewComponent = lstViewPage.keys().map(key => ({
-  path: lstViewPage.resolve(key).toLowerCase()
+  path: key.toLowerCase()
   , component: lstViewPage(key).default
 }));
 console.log("lstViewComponent", lstViewComponent)
