@@ -35,6 +35,7 @@ export const jcTree = {
             "复查对接": { id: 51, path: "/dj/index", },
         }
     },
+    
     "整改": {
         id: 6,
         path: "/zg",
@@ -42,7 +43,14 @@ export const jcTree = {
             "整改": { id: 61, path: "/zg/index" },
         }
     },
-   
+    
+    "表单": {
+        id: 11,
+        path: "/hform",
+        children: {
+            "设计模式": { id: 111, path: "/hform/designer" },
+        }
+    },
     
 };
 
