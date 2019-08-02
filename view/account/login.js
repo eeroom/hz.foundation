@@ -12,7 +12,7 @@ class Login extends React.Component {
     this.inputRef.focus();
   }
   render() {
-    //console.log("prop",this.props);
+    console.log("prop",this.props);
     const{form,history}=this.props;
    
     const { getFieldProps } = form;
@@ -20,20 +20,25 @@ class Login extends React.Component {
         <div>
             <div>督察管理系统</div>
             <InputItem
-                {...getFieldProps('UserName')}
+                {...getFieldProps('loginName')}
                 clear
                 placeholder="请输入用户名"
                 ref={el => this.autoFocusInst = el}
             >用户名</InputItem>
             <WhiteSpace />
             <InputItem
-                {...getFieldProps('Pwd')}
+                {...getFieldProps('password')}
                 type="password"
                 placeholder="****"
             >密码</InputItem>
             <WhiteSpace />
             <Button type="primary"
-            onClick={x=>bll.login({loginName:"changxyxa",password:"admin2019"},this.callBackOnLoginOnClick)}
+              onClick={x => form.validateFields((err, values) => {
+                if(err)
+                  return;
+                  console.log("values",values)
+                bll.login(values, this.callBackOnLoginOnClick)
+              })}
             >登陆</Button>
         </div>
     );
