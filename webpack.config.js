@@ -1,15 +1,15 @@
 const path = require('path')
 
 module.exports = {
-    //mode: "production",
-    mode: "development",
+    mode: "production",
+    //mode: "development",
     entry: './index.js'
     , output: {
         filename: 'bundle.js'
         , path: path.resolve(__dirname, 'dist')
     }
-    , devtool: 'inline-source-map'
-    //, devtool: false
+    //, devtool: 'inline-source-map'
+    , devtool: false
     , devServer: {
         contentBase: './dist',//告诉服务器从哪里提供内容。只有在你想要提供静态文件时才需要
         port: 8080,

@@ -13,7 +13,7 @@ class Work extends React.Component{
                 url: 'https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg',
                 id: '2122',
               }],
-            multiple: false,
+            multiple: true,
           }
     }
 
