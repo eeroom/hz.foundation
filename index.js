@@ -26,6 +26,14 @@ let lstViewComponent = lstViewPage.keys().map(key => ({
   , component: lstViewPage(key).default
 }));
 console.log("lstViewComponent", lstViewComponent)
+
+let lstIconsTmp=require.context('./assets/icons',true,/\.svg$/);
+let lstIcons= lstIconsTmp.keys().map(key=>lstIconsTmp(key));
+window.lstIcons=lstIcons;
+
+
+
+
 let View404 = () => {
   return (<div>页面跑了( ▼-▼ )</div>);
 }
