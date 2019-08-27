@@ -30,7 +30,7 @@ export const jcTree = {
         id: 7,
         path: "/fc",
         children: {
-            "创建复查表": { id: 71, path: "/fc/create" },
+            "创建复查表": { id: 71, path: "/hform/designer" },
             "本次复查": { id: 72, path: "/fc/work" },
             "复查对接": { id: 51, path: "/dj/index", },
         }
