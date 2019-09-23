@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Row, Col, PageHeader,Input,Checkbox  } from 'antd'
 import { Breadcrumb } from 'antd';
-import "../../assets/bootstrap.css"
 const TextArea=Input.TextArea;
 
 class Designer extends React.Component {
