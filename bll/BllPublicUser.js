@@ -6,7 +6,8 @@ class  BllPublicUser extends Bll{
         this.namespace=BllPublicUser.name;
     }
 
-    add({count}){
+    add(parameter){
+        let{count}=parameter;
         this.setState({count})
     }
 }
