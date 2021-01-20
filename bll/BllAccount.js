@@ -10,10 +10,11 @@ class  BllAccount extends Bll{
     }
 
     async login(parameter,callback){
-        let rt=await httpclient.post(foundation.Account.Login,parameter);
+        //let rt=await httpclient.post(foundation.Account.Login,parameter);
+        let rt={ status:true, msg:"登陆成功" };
         console.log("rt",rt);
         helper.localStorage.setUserInfo(parameter);
-        callback({status:true});
+       return rt;
     }
 }
 

@@ -25,7 +25,7 @@ class Login extends React.Component {
         <InputItem {...getFieldProps('password')} type="password" placeholder="****">密码</InputItem>
         <WhiteSpace />
         <Button type="primary"
-          onClick={x=>form.validateFields((err,formValue)=>!err&&handlerBtnLoginOnClick(formValue))}
+          onClick={x=>form.validateFields((err,formValue)=>!err&& this.handlerBtnLoginOnClick(formValue))}
         >登陆</Button>
       </div>
     );
@@ -33,7 +33,7 @@ class Login extends React.Component {
 
   handlerBtnLoginOnClick =async (formValue) => {
     console.log("formValue", formValue)
-    let rt = await bll.login(formValue, this.callBackOnLoginOnClick)
+    let rt = await bll.login(formValue)
     let { status, msg } = rt;
     const { history } = this.props;
     const { location } = history;
