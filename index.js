@@ -31,30 +31,12 @@ let lstIconsTmp=require.context('./assets/icons',true,/\.svg$/);
 let lstIcons= lstIconsTmp.keys().map(key=>lstIconsTmp(key));
 window.lstIcons=lstIcons;
 
-
-
-
 let View404 = () => {
   return (<div>页面跑了( ▼-▼ )</div>);
 }
 
 let ViewForbid = () => {
   return (<div>没有访问权限( ▼-▼ )</div>);
-}
-
-const FilterView = ({ view: View, ...props }) => {
-  const { location } = props;
-  const { pathname, search } = location;
-  if (!authenrization(pathname)) {
-    let returnurl = "?returnurl=" + encodeURIComponent(pathname + search);
-    return (<Redirect to={{ pathname: "/account/login", search: returnurl }}></Redirect>);
-  }
-  if(!View)
-    return <View404 {...props} />;
-  if(!authorization({pathname})){
-    return <ViewForbid {...props}></ViewForbid>
-  }
-  return <View {...props} />;
 }
 
 //认证
@@ -71,20 +53,32 @@ const authorization=({pathname})=>{
   return true;
 }
 
-const MatchView = (props) => {
-  const {location}=props;
-  const{pathname}=location;
+const ViewMatch = (props) => {
+  const {location,view}=props;
+  const { pathname, search } = location;
+  if (!authenrization(pathname)) {
+    let returnurl = "?returnurl=" + encodeURIComponent(pathname + search);
+    return (<Redirect to={{ pathname: "/account/login", search: returnurl }}></Redirect>);
+  }
+  if(!authorization({pathname})){
+    return <ViewForbid {...props}></ViewForbid>
+  }
+  let View=view;
+  if(!!View)
+      return <View {...props} />;
   let url=pathname.toLowerCase()+'.js';
-  let View = (lstViewComponent.find(x => x.path.indexOf(url) >= 0) || {}).component;
-  return (<FilterView view={View} {...props} />)
+  View = (lstViewComponent.find(x => x.path.indexOf(url) >= 0) || {}).component;
+  if(!View)
+    return <View404 {...props} />;
+  return <View {...props} />;
 }
 
 ReactDOM.render(<Provider store={store}>
   <BrowserRouter>
     <Switch>
       <Route exact path="/account/login" component={Login}></Route>
-      <Route exact path="/" render={x => (<FilterView view={HomeIndex} {...x} />)} ></Route>
-      <Route component={MatchView} ></Route>
+      <Route exact path="/" render={x => (<ViewMatch view={HomeIndex} {...x} />)} ></Route>
+      <Route component={ViewMatch} ></Route>
     </Switch>
   </BrowserRouter>
 </Provider>, document.getElementById("root"))
