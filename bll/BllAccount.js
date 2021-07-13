@@ -1,6 +1,4 @@
 import Bll from './Bll'
-import httpclient from '../utils/httpclient'
-import {foundation} from '../utils/api'
 import helper from '../utils/helper'
 import account from '../api/account'
 import apiinvoker from '../api/apiinvoker'
