@@ -34,14 +34,9 @@ class Login extends React.Component {
   handlerBtnLoginOnClick =async (formValue) => {
     console.log("formValue", formValue)
     let rt = await bll.login(formValue)
-    let { status, msg } = rt;
     const { history } = this.props;
     const { location } = history;
     const { search = '' } = location;
-    if (!status) {
-      message.info(msg || "登陆失败");
-      return;
-    }
     message.info("登陆成功");
     window.setTimeout(function (params) {
       let target = search.replace("?returnurl=", '') || "/"
