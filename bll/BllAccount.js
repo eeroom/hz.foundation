@@ -1,7 +1,6 @@
 import Bll from './Bll'
-import helper from '../utils/helper'
-import account from '../api/account'
-import apiinvoker from '../api/apiinvoker'
+import account from '../apiInterface/account'
+import apiinvoker from '../apiInterface/apiinvoker'
 
 let apiaccount=new Proxy(new account(),{get:(x,y,z)=>apiinvoker(x,y,z)})
 class  BllAccount extends Bll{
@@ -16,7 +15,6 @@ class  BllAccount extends Bll{
         let rt=await apiaccount.login(parameter);
         //let rt={ status:true, msg:"登陆成功" };
         console.log("rt",rt);
-        helper.localStorage.setUserInfo(parameter);
        return rt;
     }
 }
