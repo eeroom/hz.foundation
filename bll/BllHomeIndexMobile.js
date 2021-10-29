@@ -2,8 +2,8 @@ import Bll from './Bll'
 
 class  BllHomeIndexMobile extends Bll{
 
-    constructor(){
-        super(BllHomeIndexMobile.name);
+    constructor(ns){
+        super(ns||BllHomeIndexMobile.name);
     }
 
 }

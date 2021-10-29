@@ -5,8 +5,8 @@ import apiinvoker from '../apiInterface/apiinvoker'
 let apiaccount=new Proxy(new account(),{get:(x,y,z)=>apiinvoker(x,y,z)})
 class  BllAccount extends Bll{
 
-    constructor(){
-        super(BllAccount.name);
+    constructor(ns){
+        super(ns||BllAccount.name);
     }
 
     async login(parameter){
