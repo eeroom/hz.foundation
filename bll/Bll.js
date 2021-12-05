@@ -1,5 +1,7 @@
 export default class Bll{
-    namespace;
+    constructor(ns){
+        this.namespace=ns;
+    }
 
     dispatch(parameter){
         return Bll.dispatch(parameter);

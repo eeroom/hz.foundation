@@ -1,9 +1,8 @@
 import Bll from './Controller'
 class  BllPublicUser extends Bll{
 
-    constructor(parameter){
-        super(parameter);
-        this.namespace=BllPublicUser.name;
+    constructor(ns){
+        super(ns||BllPublicUser.name);
     }
 
     add(parameter){

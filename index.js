@@ -6,7 +6,8 @@ import Bll from './bll/Bll';
 import { Route, HashRouter, Redirect,Switch,BrowserRouter } from 'react-router-dom';
 import HomeIndex from './view/home/index-mobile'
 import Login from './view/account/login'
-import helper from './utils/helper'
+import constdict from './utils/constdict'
+import docCookies from './utils/docCookies'
 let store = createStore((state, action) => {
   // console.log("state", state);
   // console.log("action", action);
@@ -41,11 +42,7 @@ let ViewForbid = () => {
 
 //认证
 const authenrization=({pathname})=>{
-  let userInfo= helper.localStorage.getUserInfo();
-  if (!userInfo) {
-    return false;
-  }
-  return true;
+  return docCookies.getItem(constdict.authentication)=="ok";
 }
 
 //授权
