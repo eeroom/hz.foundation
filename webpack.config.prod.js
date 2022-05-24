@@ -1,17 +1,38 @@
 const path = require('path')
 
+console.log("正在执行生产环境打包")
 module.exports = {
     entry: './index.js'
     , output: {
         filename: '[name].[contenthash].js'
         , path: path.resolve(__dirname, 'dist')
     },
-    optimization:{
-        splitChunks:{
-            chunks:'all'
-        }
-    }
-    , devtool: 'inline-source-map'
+    optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            chunks: 'all',
+            maxInitialRequests: Infinity,
+            minSize: 10240,
+          cacheGroups: {
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              // cacheGroupKey here is `commons` as the key of the cacheGroup
+              name(module, chunks, cacheGroupKey) {
+                const moduleFileName = module
+                  .identifier()
+                  .split('\\')
+                  .reduceRight((item) => item);
+                  console.log("moduleFileName",moduleFileName)
+                  console.log("--------------------------------------")
+                const allChunksNames = chunks.map((item) => item.name).join('~');
+                console.log("allChunksNames",allChunksNames)
+                return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
+              },
+              chunks: 'all',
+            },
+          },
+        },
+      }
     , devServer: {
         contentBase: './dist',//告诉服务器从哪里提供内容。只有在你想要提供静态文件时才需要
         port: 802,
