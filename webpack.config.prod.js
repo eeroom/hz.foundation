@@ -1,5 +1,5 @@
 const path = require('path')
-
+let htmlwebpackplugin=require('html-webpack-plugin')
 console.log("正在执行生产环境打包")
 module.exports = {
     entry: './index.js'
@@ -8,11 +8,10 @@ module.exports = {
         , path: path.resolve(__dirname, 'dist')
     },
     optimization: {
-        runtimeChunk: 'single',
         splitChunks: {
             chunks: 'all',
             maxInitialRequests: Infinity,
-            minSize: 10240,
+            minSize: 20*1024,
           cacheGroups: {
             vendor: {
               test: /[\\/]node_modules[\\/]/,
@@ -70,5 +69,13 @@ module.exports = {
                 ]
             }
         ]
-    }
+    },
+    plugins:[
+      new htmlwebpackplugin({
+        template:'./index.html',
+        inject:true,
+        publicPath:'/',
+        templateParameters:{publicDate:new Date().toLocaleString()}
+      })
+    ]
 }
