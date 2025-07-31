@@ -20,6 +20,12 @@ let store = createStore((state, action) => {
 Bll.dispatch = store.dispatch;
 Bll.getState = store.getState;
 
+/**
+ * webpack打包过程中会把 require.context 替换成 __webpack_require__  方法，类似于宏替换
+ * 通过一个最简单的index.js（仅包含一行hello world）可以发现：webpack会构建一个匿名的function并在js加载后执行
+ * 在这个匿名的作用域内会有大量webpack内置的函数，包括 __webpack_require__
+ * 我们index.js中的代码就会被 搬运到 匿名funciton中
+ */
 let lstViewPage = require.context("./view", true, /\.js$/);
 console.log("lstViewPage", lstViewPage)
 let lstViewComponent = lstViewPage.keys().map(key => ({
